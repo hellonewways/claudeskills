@@ -1,0 +1,16 @@
+# Private — never commit
+agent/MEMORY.md
+agent/USER.md
+agent/memory/
+*.key
+*.token
+*.env
+.env*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
