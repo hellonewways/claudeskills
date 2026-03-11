@@ -11,26 +11,44 @@ Full setup guide, security hardening, agent template, and self-monitoring — ev
 ## What's in here
 
 ```
-docs/                        Complete documentation
+docs/                        Complete documentation (the valuable part)
 ├── 00_INSTALL_PLAN.md       Full step-by-step install plan
 ├── 01_SETUP.md              macOS setup guide
 ├── 02_SECURITY.md           Security hardening + audit
 ├── 03_MAINTENANCE.md        Updates, backup, daemon management
 ├── 04_TROUBLESHOOTING.md    Diagnostics + common fixes
 ├── 05_INTEGRATIONS.md       Channels, models, ClawHub skills
-└── 06_ROADMAP.md            Roadmap + business context setup
+└── 06_ROADMAP.md            Roadmap + personal context setup
 
-agent/                       Blank agent template files
+agent/                       Blank template files — always clean, always public
 ├── SOUL.md                  Personality, tone, values
 ├── IDENTITY.md              Name, role, emoji, avatar
 ├── BOOT.md                  Startup behavior
-├── HEARTBEAT.md             Periodic monitoring tasks
-├── MONITORING.md            KI-watches-KI architecture
-└── USER.md                  User profile (gitignored)
+├── HEARTBEAT.md             Periodic monitoring tasks (pre-filled)
+└── MONITORING.md            KI-watches-KI architecture
 
-SETUP_QUESTIONNAIRE.md       Fill this in before setup
-deploy.sh                    One-command deploy to workspace
+SETUP_QUESTIONNAIRE.md       Answer these before setup
+deploy.sh                    Reference — see Two-folder architecture below
 ```
+
+---
+
+## Two-folder architecture
+
+This repo stays clean. Your personal data lives separately — never in this repo.
+
+```
+Openclaw Auto Setup/     ← This repo (GitHub, always public, always blank)
+    agent/               ← Blank templates only
+
+Openclaw Personal/       ← Local only, never pushed here
+    agent/               ← YOUR filled versions (SOUL, IDENTITY, MEMORY...)
+    context-input/       ← Drop your CV, notes, business docs here
+    deploy.sh            ← The script you actually run
+```
+
+**Result:** You can keep improving and pushing this repo without ever risking
+your personal data leaking in. Two separate concerns, zero overlap.
 
 ---
 
@@ -49,19 +67,20 @@ git clone https://github.com/mropenclaw/openclaw-auto-setup.git
 cd openclaw-auto-setup
 ```
 
-### 3. Configure your agent
-Fill in the `agent/` files — replace all `[PLACEHOLDERS]` with your info:
-- `SOUL.md` — personality and tone
-- `IDENTITY.md` — name and role
-- `BOOT.md` — startup behavior (optional)
-- `HEARTBEAT.md` — monitoring schedule (pre-filled with sensible defaults)
-
-> `USER.md` is gitignored — fill it in locally, never commit it.
-
-### 4. Deploy
+### 3. Create your personal folder
 ```bash
+mkdir -p "Openclaw Personal/agent"
+cp deploy.sh "Openclaw Personal/deploy.sh"   # copy the deploy script
+```
+
+Fill in the files in `Openclaw Personal/agent/` — never in this repo's `agent/`.
+Use `SETUP_QUESTIONNAIRE.md` as your guide, or drop files into `context-input/`
+and let a Claude Code session auto-fill everything for you.
+
+### 4. Deploy from your personal folder
+```bash
+cd "Openclaw Personal"
 bash deploy.sh
-openclaw gateway restart
 ```
 
 Done. Open your chat app and say hello.
@@ -89,12 +108,14 @@ See `SETUP_QUESTIONNAIRE.md` if you prefer answering questions directly.
 
 ## What stays private
 
-Gitignored — keep these local only:
-- `agent/MEMORY.md` — long-term memory (personal/business context)
-- `agent/USER.md` — your profile
-- `agent/memory/` — daily session logs
+Everything in `Openclaw Personal/` — never in this repo:
+- `SOUL.md`, `IDENTITY.md` — your filled versions
+- `MEMORY.md` — personal and business context
+- `USER.md` — your profile
+- `memory/` — daily session logs
+- `context-input/` — documents you scanned
 
-Store these in a **private repo** or encrypted local folder.
+Store `Openclaw Personal/` in a **private repo** or keep it local-only.
 
 ---
 

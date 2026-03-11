@@ -1,12 +1,3 @@
-# Private — never commit
-agent/MEMORY.md
-agent/USER.md
-agent/memory/
-*.key
-*.token
-*.env
-.env*
-
 # OS
 .DS_Store
 Thumbs.db
@@ -14,3 +5,13 @@ Thumbs.db
 # Editor
 .vscode/
 .idea/
+
+# Safety net — these should always be blank in this repo anyway
+# If you accidentally filled them in, this prevents the push
+agent/MEMORY.md
+agent/USER.md
+agent/memory/
+*.key
+*.token
+*.env
+.env*
