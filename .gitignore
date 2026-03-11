@@ -6,6 +6,9 @@ Thumbs.db
 .vscode/
 .idea/
 
+# Your personal context — never pushed to GitHub
+your-context/
+
 # Safety net — these should always be blank in this repo anyway
 # If you accidentally filled them in, this prevents the push
 agent/MEMORY.md

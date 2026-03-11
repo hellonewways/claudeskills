@@ -1,54 +1,38 @@
-# Openclaw Auto Setup
+# Openclaw-Setup-Agent
 
 **From zero to running personal AI agent in under 10 minutes.**
 
-Full setup guide, security hardening, agent template, and self-monitoring — everything you need to run [OpenClaw](https://openclaw.ai) on your Mac (or any machine).
+Full setup guide, security hardening, agent templates, and self-monitoring — everything you need to run [OpenClaw](https://openclaw.ai) on your Mac (or any machine).
 
-> OpenClaw is a self-hosted, open-source AI agent that runs locally and works from the chat apps you already use — WhatsApp, Telegram, iMessage, Discord and more.
+> OpenClaw is a self-hosted, open-source AI agent that runs locally and works from the chat apps you already use — Telegram, WhatsApp, iMessage, Discord and more.
 
 ---
 
 ## What's in here
 
 ```
-docs/                        Complete documentation (the valuable part)
+docs/                        Complete documentation
 ├── 00_INSTALL_PLAN.md       Full step-by-step install plan
 ├── 01_SETUP.md              macOS setup guide
 ├── 02_SECURITY.md           Security hardening + audit
 ├── 03_MAINTENANCE.md        Updates, backup, daemon management
 ├── 04_TROUBLESHOOTING.md    Diagnostics + common fixes
-├── 05_INTEGRATIONS.md       Channels, models, ClawHub skills
+├── 05_INTEGRATIONS.md       Channels, models, skills
 └── 06_ROADMAP.md            Roadmap + personal context setup
 
-agent/                       Blank template files — always clean, always public
+agent/                       Blank reference templates (always clean, always public)
 ├── SOUL.md                  Personality, tone, values
 ├── IDENTITY.md              Name, role, emoji, avatar
 ├── BOOT.md                  Startup behavior
-├── HEARTBEAT.md             Periodic monitoring tasks (pre-filled)
-└── MONITORING.md            KI-watches-KI architecture
+├── HEARTBEAT.md             Periodic monitoring tasks
+└── MONITORING.md            Agent self-monitoring architecture
 
-SETUP_QUESTIONNAIRE.md       Answer these before setup
-deploy.sh                    Reference — see Two-folder architecture below
+your-context/                YOUR personal context — fill this in (gitignored)
+└── README.md                Instructions: what to fill in and how
+
+SETUP_QUESTIONNAIRE.md       Answer these before setup — guides your agent files
+deploy.sh                    Links your-context/ to OpenClaw workspace
 ```
-
----
-
-## Two-folder architecture
-
-This repo stays clean. Your personal data lives separately — never in this repo.
-
-```
-Openclaw Auto Setup/     ← This repo (GitHub, always public, always blank)
-    agent/               ← Blank templates only
-
-Openclaw Personal/       ← Local only, never pushed here
-    agent/               ← YOUR filled versions (SOUL, IDENTITY, MEMORY...)
-    context-input/       ← Drop your CV, notes, business docs here
-    deploy.sh            ← The script you actually run
-```
-
-**Result:** You can keep improving and pushing this repo without ever risking
-your personal data leaking in. Two separate concerns, zero overlap.
 
 ---
 
@@ -63,23 +47,20 @@ Requires: Node.js 22+ and an API key ([Anthropic](https://console.anthropic.com)
 
 ### 2. Clone this repo
 ```bash
-git clone https://github.com/hellonewways/claudeskills.git
-cd claudeskills
+git clone https://github.com/hellonewways/claudeskills.git openclaw-setup-agent
+cd openclaw-setup-agent
 ```
 
-### 3. Create your personal folder
-```bash
-mkdir -p "Openclaw Personal/agent"
-cp deploy.sh "Openclaw Personal/deploy.sh"   # copy the deploy script
-```
+### 3. Add your personal context
 
-Fill in the files in `Openclaw Personal/agent/` — never in this repo's `agent/`.
-Use `SETUP_QUESTIONNAIRE.md` as your guide, or drop files into `context-input/`
-and let a Claude Code session auto-fill everything for you.
+Open the `your-context/` folder. Fill in the files there.
 
-### 4. Deploy from your personal folder
+Use `SETUP_QUESTIONNAIRE.md` as your guide — or drop your CV, business description, and notes into `your-context/` and let a Claude Code session auto-fill everything for you.
+
+> `your-context/` is gitignored. Your data stays local. It will never be pushed to GitHub.
+
+### 4. Deploy
 ```bash
-cd "Openclaw Personal"
 bash deploy.sh
 ```
 
@@ -98,24 +79,15 @@ See `agent/MONITORING.md` for the full architecture.
 
 ---
 
-## Already have info about yourself?
-
-Drop files into a local `context-input/` folder (CV, business description, notes — anything).
-A Claude Code session can scan them and auto-fill your agent files, then ask only the gaps.
-See `SETUP_QUESTIONNAIRE.md` if you prefer answering questions directly.
-
----
-
 ## What stays private
 
-Everything in `Openclaw Personal/` — never in this repo:
+Everything in `your-context/` — never pushed here:
 - `SOUL.md`, `IDENTITY.md` — your filled versions
 - `MEMORY.md` — personal and business context
 - `USER.md` — your profile
-- `memory/` — daily session logs
-- `context-input/` — documents you scanned
+- Any documents you added for context
 
-Store `Openclaw Personal/` in a **private repo** or keep it local-only.
+Store your filled `your-context/` content in a **private repo** or keep it local-only.
 
 ---
 
