@@ -63,8 +63,8 @@ Requires: Node.js 22+ and an API key ([Anthropic](https://console.anthropic.com)
 
 ### 2. Clone this repo
 ```bash
-git clone https://github.com/mropenclaw/openclaw-auto-setup.git
-cd openclaw-auto-setup
+git clone https://github.com/hellonewways/claudeskills.git
+cd claudeskills
 ```
 
 ### 3. Create your personal folder
